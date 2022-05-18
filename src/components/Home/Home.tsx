@@ -117,8 +117,6 @@ const HomeNew = (props: any) => {
         const TWITTER_AUTH_ROUTE = USER_ROUTE + `/${pubkey}/twitter/authorize`;
         let res = await fetch(TWITTER_AUTH_ROUTE, {
           method : "PUT",
-          mode: 'same-origin',
-          redirect: 'follow',
           credentials: 'include', // Don't forget to specify this if you need cookies
           headers: {
             "Content-Type": "application/json",
@@ -246,8 +244,6 @@ const HomeNew = (props: any) => {
           const TWITTER_POST_USER_ROUTE = USER_ROUTE + '/twitter/callback';
           await fetch(TWITTER_POST_USER_ROUTE, {
             method: "PUT",
-            mode: 'same-origin',
-            redirect: 'follow',
             credentials: 'include', // Don't forget to specify this if you need cookies
             headers: {
               "Content-Type": "application/json",
