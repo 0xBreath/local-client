@@ -121,7 +121,7 @@ const HomeNew = (props: any) => {
         });
         //window.location.replace(res.url)
         console.log(res)
-        console.log('url? ', res.url);
+        console.log('url? ', res.headers);
 
         if (res.status == 200) {
           setAlertState({
