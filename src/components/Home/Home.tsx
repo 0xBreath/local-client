@@ -114,7 +114,13 @@ const HomeNew = (props: any) => {
       if (wallet && publicKey) {
         let pubkey = publicKey.toString()
         const TWITTER_ROUTE = USER_ROUTE + `/${pubkey}/twitter/authorize`;
-        let res = await fetch(TWITTER_ROUTE, {method : "POST",});
+        let res = await fetch(TWITTER_ROUTE, {
+          method : "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
         console.log(res)
         let headers = res.headers;
         console.log('stuff', JSON.stringify(headers))
