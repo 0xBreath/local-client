@@ -31,7 +31,6 @@ const HomeNew = (props: any) => {
   });
 
   const USER_ROUTE = "http://localhost:3001/users";
-  const TWITTER_POST_USER_ROUTE = 'https://localhost:3001/users/twitter/callback'
 
 
   const onUnsignWallet = async () => {
@@ -242,6 +241,7 @@ const HomeNew = (props: any) => {
             oauth_token: oauth_token,
             oauth_verifier: oauth_verifier
           } 
+          const TWITTER_POST_USER_ROUTE = USER_ROUTE + '/twitter/callback';
           await fetch(TWITTER_POST_USER_ROUTE, {
             method: "PUT",
             headers: {
