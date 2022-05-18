@@ -121,8 +121,9 @@ const HomeNew = (props: any) => {
             Accept: "application/json",
           },
         });
-        console.log(await res.text())
-       // window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`
+        let oauth_token = await res.text();
+        console.log('twitter oauth_token -> ', oauth_token);
+        window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`
 
         if (res.status == 200) {
           setAlertState({
