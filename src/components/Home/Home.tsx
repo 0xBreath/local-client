@@ -121,9 +121,7 @@ const HomeNew = (props: any) => {
             Accept: "application/json",
           },
         });
-        console.log(res)
-        let headers = res.headers;
-        console.log('stuff', JSON.stringify(headers))
+        console.log(await res.text())
        // window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`
 
         if (res.status == 200) {
