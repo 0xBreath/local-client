@@ -116,7 +116,7 @@ const HomeNew = (props: any) => {
         const TWITTER_ROUTE = USER_ROUTE + `/${pubkey}/twitter/authorize`;
         let res = await fetch(TWITTER_ROUTE, {
           method : "Get",
-          mode: 'cors',
+          mode: 'navigate',
           redirect: 'follow'
         });
         console.log('fetch? ', res.status);
