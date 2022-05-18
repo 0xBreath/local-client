@@ -117,6 +117,14 @@ const HomeNew = (props: any) => {
         let res = await fetch(TWITTER_ROUTE, {method : "Get"});
         console.log('fetch? ', res.status);
 
+        if (res.status == 200) {
+          setAlertState({
+            open: true,
+            message: "Twitter connected successfully! You may return to Discord.",
+            severity: "success",
+          });
+        }
+
       } // end of if
     } catch (error: any) {
       console.log("Twitter login errored");
