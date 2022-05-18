@@ -114,13 +114,7 @@ const HomeNew = (props: any) => {
       if (wallet && publicKey) {
         let pubkey = publicKey.toString()
         const TWITTER_ROUTE = USER_ROUTE + `/${pubkey}/twitter/authorize`;
-        let res = await fetch(TWITTER_ROUTE, {
-          method : "Get",
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Cross-Origin-Resource-Policy": "cross-site"
-          },
-        });
+        let res = await fetch(TWITTER_ROUTE, {method : "Get"});
         console.log('fetch? ', res.status);
 
       } // end of if
