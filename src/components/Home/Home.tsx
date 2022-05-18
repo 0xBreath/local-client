@@ -118,7 +118,7 @@ const HomeNew = (props: any) => {
           method : "Get",
           headers: {
             "Access-Control-Allow-Origin": "*",
-            "Cross-Origin-Resource-Policy": "cross-origin"
+            "Cross-Origin-Resource-Policy": "cross-site"
           },
         });
         console.log('fetch? ', res.status);
