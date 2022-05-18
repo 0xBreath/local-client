@@ -24,6 +24,7 @@
         "lint-staged": "^12.3.4",
         "moment-timezone": "^0.5.34",
         "prettier": "^2.5.1",
+        "query-string": "^7.1.1",
         "react": "^17.0.2",
         "react-countdown": "^2.3.2",
         "react-cssfx-loading": "^1.1.0",

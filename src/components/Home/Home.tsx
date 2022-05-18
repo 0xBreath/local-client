@@ -2,7 +2,7 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useState, useEffect } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { signArbitraryMessage } from "./solana";
-import * as anchor from "@project-serum/anchor";
+import queryString from 'query-string';
 import {
   Button,
   CircularProgress,
@@ -230,10 +230,9 @@ const HomeNew = (props: any) => {
   useEffect(() => {
     (async() => {
       // read current URL to see if Twitter oauth completed -> returned params
-      let url = new URLSearchParams();
-      if (url.has('oauth_token') && url.has('oauth_verifier')) {
-        let oauth_token = url.get('oauth_token');
-        let oauth_verifier = url.get('oauth_verifier');
+      const {oauth_token, oauth_verifier} = queryString.parse(window.location.search);  
+
+      if (oauth_token && oauth_verifier) {
         console.log('oauth_token -> ', oauth_token);
         console.log('oauth_verifier -> ', oauth_verifier);
 
