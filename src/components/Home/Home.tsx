@@ -228,7 +228,6 @@ const HomeNew = (props: any) => {
 
   useEffect(() => {
     (async() => {
-      console.log('useEffect')
       // read current URL to see if Twitter oauth completed -> returned params
       const {oauth_token, oauth_verifier} = queryString.parse(window.location.search);  
 
