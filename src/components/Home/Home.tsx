@@ -114,8 +114,10 @@ const HomeNew = (props: any) => {
       if (wallet && publicKey) {
         let pubkey = publicKey.toString()
         const TWITTER_ROUTE = USER_ROUTE + `/${pubkey}/twitter/authorize`;
-        let res = await fetch(TWITTER_ROUTE, {method : "Get",});
+        let res = await fetch(TWITTER_ROUTE, {method : "POST",});
         console.log(res)
+        let headers = res.headers;
+        console.log('stuff', JSON.stringify(headers))
        // window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`
 
         if (res.status == 200) {
