@@ -1,5 +1,5 @@
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { signArbitraryMessage } from "./solana";
 import * as anchor from "@project-serum/anchor";
@@ -127,25 +127,6 @@ const HomeNew = (props: any) => {
         console.log('twitter oauth_token -> ', oauth_token);
         window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`
 
-        let params = new URLSearchParams();
-        let oauthToken = params.get('oauth_token');
-        console.log('oauthToken -> ', oauthToken);
-        let oauthVerifier = params.get('oauth_verifier');
-        console.log('oauthVerifier -> ', oauthVerifier);
-
-        let body = {
-          oauth_token: oauthToken,
-          oauth_verifier: oauthVerifier
-        } 
-        await fetch(TWITTER_POST_USER_ROUTE, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(body),     
-        })
-
         if (res.status == 200) {
           setAlertState({
             open: true,
@@ -245,6 +226,32 @@ const HomeNew = (props: any) => {
       setRegister(false);
     }
   };// end of onRegister()
+
+  useEffect(() => {
+    (async() => {
+      // read current URL to see if Twitter oauth completed -> returned params
+      let url = new URLSearchParams();
+      if (url.has('oauth_token') && url.has('oauth_verifier')) {
+        let oauth_token = url.get('oauth_token');
+        let oauth_verifier = url.get('oauth_verifier');
+        console.log('oauth_token -> ', oauth_token);
+        console.log('oauth_verifier -> ', oauth_verifier);
+
+        let body = {
+          oauth_token: oauth_token,
+          oauth_verifier: oauth_verifier
+        } 
+        await fetch(TWITTER_POST_USER_ROUTE, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(body),     
+        })
+      }      
+    })();
+  }, []);
 
   return (
     <>
