@@ -119,7 +119,7 @@ const HomeNew = (props: any) => {
           mode: 'cors',
           redirect: 'follow'
         });
-        console.log('fetch? ', res.status);
+        console.log('? ', res.redirected);
 
         if (res.status == 200) {
           setAlertState({
