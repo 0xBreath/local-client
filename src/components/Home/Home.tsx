@@ -31,6 +31,8 @@ const HomeNew = (props: any) => {
   });
 
   const USER_ROUTE = "http://localhost:3001/users";
+  const TWITTER_POST_USER_ROUTE = 'https://localhost:3001/users/twitter/callback'
+
 
   const onUnsignWallet = async () => {
     try {
@@ -113,8 +115,8 @@ const HomeNew = (props: any) => {
       setTwitter(true);
       if (wallet && publicKey) {
         let pubkey = publicKey.toString()
-        const TWITTER_ROUTE = USER_ROUTE + `/${pubkey}/twitter/authorize`;
-        let res = await fetch(TWITTER_ROUTE, {
+        const TWITTER_AUTH_ROUTE = USER_ROUTE + `/${pubkey}/twitter/authorize`;
+        let res = await fetch(TWITTER_AUTH_ROUTE, {
           method : "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -124,6 +126,25 @@ const HomeNew = (props: any) => {
         let oauth_token = await res.text();
         console.log('twitter oauth_token -> ', oauth_token);
         window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`
+
+        let params = new URLSearchParams();
+        let oauthToken = params.get('oauth_token');
+        console.log('oauthToken -> ', oauthToken);
+        let oauthVerifier = params.get('oauth_verifier');
+        console.log('oauthVerifier -> ', oauthVerifier);
+
+        let body = {
+          oauth_token: oauthToken,
+          oauth_verifier: oauthVerifier
+        } 
+        await fetch(TWITTER_POST_USER_ROUTE, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(body),     
+        })
 
         if (res.status == 200) {
           setAlertState({
