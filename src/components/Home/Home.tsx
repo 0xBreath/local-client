@@ -229,25 +229,30 @@ const HomeNew = (props: any) => {
 
   useEffect(() => {
     (async() => {
+      console.log('useEffect')
       // read current URL to see if Twitter oauth completed -> returned params
       const {oauth_token, oauth_verifier} = queryString.parse(window.location.search);  
 
       if (oauth_token && oauth_verifier) {
-        console.log('oauth_token -> ', oauth_token);
-        console.log('oauth_verifier -> ', oauth_verifier);
-
-        let body = {
-          oauth_token: oauth_token,
-          oauth_verifier: oauth_verifier
-        } 
-        await fetch(TWITTER_POST_USER_ROUTE, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(body),     
-        })
+        try {
+          console.log('oauth_token -> ', oauth_token);
+          console.log('oauth_verifier -> ', oauth_verifier);
+  
+          let body = {
+            oauth_token: oauth_token,
+            oauth_verifier: oauth_verifier
+          } 
+          await fetch(TWITTER_POST_USER_ROUTE, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(body),     
+          })
+        } catch (err) {
+          console.log(err)
+        }
       }      
     })();
   }, []);
