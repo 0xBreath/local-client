@@ -117,7 +117,6 @@ const HomeNew = (props: any) => {
         const TWITTER_AUTH_ROUTE = USER_ROUTE + `/${pubkey}/twitter/authorize`;
         let res = await fetch(TWITTER_AUTH_ROUTE, {
           method : "PUT",
-          credentials: 'include', // Don't forget to specify this if you need cookies
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
@@ -126,14 +125,6 @@ const HomeNew = (props: any) => {
         let oauth_token = await res.text();
         console.log('twitter oauth_token -> ', oauth_token);
         window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`
-
-        if (res.status == 200) {
-          setAlertState({
-            open: true,
-            message: "Twitter connected successfully! You may return to Discord.",
-            severity: "success",
-          });
-        }
 
       } // end of if
     } catch (error: any) {
@@ -242,17 +233,29 @@ const HomeNew = (props: any) => {
             oauth_verifier: oauth_verifier
           } 
           const TWITTER_POST_USER_ROUTE = USER_ROUTE + '/twitter/callback';
-          await fetch(TWITTER_POST_USER_ROUTE, {
+          let res = await fetch(TWITTER_POST_USER_ROUTE, {
             method: "PUT",
-            credentials: 'include', // Don't forget to specify this if you need cookies
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json",
             },
             body: JSON.stringify(body),     
           })
+
+          if (res.status == 200) {
+            setAlertState({
+              open: true,
+              message: "Twitter connected successfully!",
+              severity: "success",
+            });
+          }
         } catch (err) {
           console.log(err)
+          setAlertState({
+            open: true,
+            message: "Twitter failed to register. Please refresh and try again.",
+            severity: "error",
+          });
         }
       }      
     })();
