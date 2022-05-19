@@ -232,7 +232,6 @@ const HomeNew = (props: any) => {
             oauth_token: oauth_token,
             oauth_verifier: oauth_verifier
           } 
-          // server creates user access tokens from oauth_token and oauth_verifier
           const TWITTER_POST_USER_ROUTE = USER_ROUTE + '/twitter/callback';
           let res = await fetch(TWITTER_POST_USER_ROUTE, {
             method: "PUT",
